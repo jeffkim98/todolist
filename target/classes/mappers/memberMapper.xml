@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.todolist.mapper.MemberMapper">
+  	<select id="getDateTime" resultType="string">
+  		select now()
+  	</select>
+  	
+<!--   	회원가입 쿼리문 작성 -->
+  	<insert id="insertMember" >
+  		insert into kyj_member(memberName ,memberId, memberPwd, email)
+		values(#{memberName}, #{memberId}, sha1(md5(#{memberPwd})), #{email})
+  	</insert>
+  	
+<!--   	멤버 아이디를 select하는 쿼리문 작성 -->
+  	<select id="selectMemberId" resultType="int">
+  		select count(*) from kyj_member where memberId = #{tmpMemberId}
+  	</select>
+  	
+<!--   	로그인 쿼리문 -->
+  	<select id="loginMemberDTO" resultType="MemberDTO">
+  		select * from kyj_member where memberId = #{memberId} and memberPwd = sha1(md5(#{memberPwd}))
+  	</select>
+  	
+<!--   	이메일로 아이디 조회 하는 쿼리문 -->
+  	<select id="selectEmailByMemberId" resultType="string">
+  		select email from kyj_member where memberId = #{memberId}
+  	</select>
+  	
+  	</mapper>
