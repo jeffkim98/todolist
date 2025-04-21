@@ -22,9 +22,9 @@ public interface DiaryService {
 		// 로그인한 유저의 글만 조회
 		List<DiaryVO> viewAll(String memberId);
 
-		// 검색
+		// 검색 기능
 		List<DiaryVO> searchDiary(SearchDTO searchDTO);
 
-		List<DiaryVO> deleteList(int dno);
+
 
 }

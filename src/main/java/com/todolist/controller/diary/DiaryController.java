@@ -18,6 +18,7 @@ import com.todolist.domain.DiaryDTO;
 import com.todolist.domain.DiaryVO;
 import com.todolist.domain.MemberDTO;
 import com.todolist.domain.SearchDTO;
+import com.todolist.mapper.DiaryMapper;
 import com.todolist.service.diary.DiaryService;
 
 import lombok.RequiredArgsConstructor;
@@ -30,6 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 public class DiaryController {
 
 	private final DiaryService diaryService;
+	private final DiaryMapper diaryMapper;
 	
 	@GetMapping("/register")
 	public String registerForm(HttpSession session) {
@@ -164,11 +166,13 @@ public class DiaryController {
 	}
 	
 	@PostMapping("/deleteList")
-	public String deleteList(@RequestParam("dno") int dno) {
+	public String deleteDiary(@RequestParam("dno") int dno) {
 		
-	    diaryService.deleteList(dno);
+		log.info("삭제 할 dno : {}",  dno);
+		
+		diaryMapper.deleteDiary(dno);
 	    
-	    return "redirect:/diary/list"; // 삭제 후 목록으로 리다이렉트
+	    return "redirect:/diary/list";
 	}
 	
 }

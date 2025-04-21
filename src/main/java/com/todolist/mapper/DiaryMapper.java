@@ -32,7 +32,8 @@ public interface DiaryMapper {
 	// 검색
 	List<DiaryVO> selectSearchList(SearchDTO searchDTO);
 	
-	// 삭제
-	List<DiaryVO> deleteList(int dno);
+	// 삭제 
+	void deleteDiary(@Param("dno") int dno);
+	
 	
 }

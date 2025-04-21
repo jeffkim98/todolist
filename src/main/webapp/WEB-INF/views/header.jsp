@@ -39,18 +39,19 @@
         
         <c:otherwise>
         <li class="nav-item">
-	          <a class="nav-link" href="${contextPath}/member/mypage">🎉${loginMember.memberName }님 환영합니다!!🎉</a>
+	          <div class="nav-link" >🎉${loginMember.memberName }님 환영합니다!!🎉</div>
 	        </li>
      
 	        <li class="nav-item dropdown">
 	          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">상세메뉴</a>
-	          <ul class="dropdown-menu">
-	            <li><a class="dropdown-item" href="${contextPath}/diary/register">다이어리 등록</a></li>
-	            <li><a class="dropdown-item" href="${contextPath}/diary/list">다이어리 목록</a></li>
+	          <ul class="dropdown-menu menu">
+	            <li><a class="dropdown-item" href="${contextPath}/member/mypage">마이페이지</a></li>
+	            <li><a class="dropdown-item" href="${contextPath}/diary/register">todolist 등록</a></li>
+	            <li><a class="dropdown-item" href="${contextPath}/diary/list">todolist 목록</a></li>
 	          </ul>
 	        </li>
 	        
-	        <li class="nav-item">
+	        <li class="nav-item menu">
 	          <a class="nav-link" href="${contextPath}/member/logout">로그아웃</a>
 	        </li>
       		 </c:otherwise>

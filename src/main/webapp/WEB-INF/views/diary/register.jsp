@@ -120,7 +120,7 @@ span {
 	<div class="container mt-5">
 		<div class="row">
 
-			<h1>${loginMember.memberName}님의 다이어리 등록</h1>
+			<h1>${loginMember.memberName}님의 todolist 등록</h1>
 
 			<form action="/diary/register" method="post">
 			

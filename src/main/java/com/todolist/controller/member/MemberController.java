@@ -41,6 +41,12 @@ public class MemberController {
 		
 	}
 	
+	// 마이페이지를 여는 폼
+	@GetMapping("/mypage")
+	public void mypageForm() {
+		
+	}
+	
 	// 회원가입 후 저장
 		@PostMapping("/signup")
 		public String registerMember(MemberDTO memberDTO , RedirectAttributes rttr) {

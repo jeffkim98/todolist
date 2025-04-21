@@ -76,6 +76,11 @@
 		$("#searchFormCard").toggle();
 	});
 	
+	$(".deleteBtn").click(function () {
+		let dno = $(this).data("dno");
+		
+	});
+	
 });
 
 function modifyDiary() {
@@ -115,8 +120,34 @@ function modifyDiary() {
 	
 	
 }
+
+function deleteBtn(dno) {
+	
+	console.log("삭제할 dno : " , dno);
+
+	$.ajax({
+        url: "/diary/deleteList" , // 데이터가 송수신될 서버의 주소
+        type: "POST", // 통신 방식 (GET, POST, PUT, DELETE)
+		data: {
+			dno : dno,
+		}, // 보내는 데이터
+        dataType: "text", // 수신받을 데이터 타입 (MIME TYPE) (text, json, xml)
+        // async: false, // 동기 통신 방식
+        success: function (data) {
+          // 통신이 성공하면 수행할 함수
+          console.log(data);
+          
+        },
+        error: function () {},
+        complete: function () {   
+        },
+      });
+	
+}
+	
 </script>
 <style type="text/css">
+	li.completed .dnoDiv,
 	li.completed .titleDiv,
 	li.completed .dueDateDiv {
 		text-decoration: line-through;
@@ -141,11 +172,13 @@ text-align: center;
 	<div class="container mt-5">
 		<div class="row">
 
-			<h1>${loginMember.memberName}님의 다이어리 목록</h1>
+			<h1>${loginMember.memberName}님의 todolist 목록</h1>
 			
 			<div class="mb-3 searchBtn">
-				<button class="btn btn-primary" id="searchBtn">🔍검색옵션🔍</button>
+				<button class="btn btn-primary" id="searchBtn">리스트 검색하기</button>
+				<a class="btn btn-primary" href="/diary/register">리스트 등록하기</a>
 			</div>
+			
 			
 			<div class="card" id="searchFormCard" style="display: none;">
   				<div class="card-body">
@@ -190,20 +223,24 @@ text-align: center;
 				<input type="checkbox" class="form-check-input finishedCheckbox" data-dno="${diary.dno }"
 				<c:if test="${diary.finished }">checked</c:if>/>
 				
+				<div class="dnoDiv"> [${diary.dno }] 리스트 - </div>
+				
 				<label class="titleDiv" >${diary.title } </label>
 				
 				<div class="dueDateDiv">(${diary.dueDate })</div>
 				
+				<!-- 수정 버튼 -->
 				<button type="button" class="btn btn-outline-info btn-sm modifyBtn"
 						data-dno="${diary.dno }"
 						data-title="${diary.title }"
 						data-date="${diary.dueDate }">수정</button>
 						
-				<form action="deleteList" method="post"
-							onsubmit="return confirm('정말 삭제하시겠습니까?');">
-							<input type="hidden" name="dno" value="${diary.dno}" />
-							<button type="submit" class="btn btn-outline-danger btn-sm ms-auto">삭제</button>
-						</form>
+				<!-- 삭제 버튼 -->
+				<form action="/diary/deleteList" method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
+				    <input type="hidden" id="deleteDno" name="dno" value="${diary.dno}" />
+				    <button type="submit" class="btn btn-outline-danger btn-sm deleteBtn">삭제</button>
+				</form>
+					
 					</li>
 			</c:forEach>
 			</ul>
@@ -217,22 +254,21 @@ text-align: center;
 
       <!-- Modal Header -->
       <div class="modal-header">
-        <h4 class="modal-title">Modal Heading</h4>
+        <h4 class="modal-title">수정 하기</h4>
         <button type="button" class="btn-close closeModal" data-bs-dismiss="modal"></button>
       </div>
 
       <!-- Modal body -->
       <div class="modal-body">
-        Modal body..
         
         <input type="hidden" id="modifyDno" name="dno" />
         <div class="mb-3 mt-3">
-        	<label for="modifyTitle" class="form-label">Title :</label>
+        	<label for="modifyTitle" class="form-label">제목 :</label>
 			<input type="text" class="form-control" id="modifyTitle" placeholder="제목" name="title">
          </div>
          
         <div class="mb-3">
-					<label for="modifyDueDate" class="form-label">Due Date :</label> 
+					<label for="modifyDueDate" class="form-label">마감일 :</label> 
 					<input type="date" class="form-control" id="modifyDueDate" name="dueDateStr">
 				</div>
         

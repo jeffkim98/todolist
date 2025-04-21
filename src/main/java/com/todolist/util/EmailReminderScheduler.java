@@ -29,7 +29,7 @@ public class EmailReminderScheduler {
 	private final SendMailService sendMailService;
 	private final MemberMapper memberMapper;
 
-	@Scheduled(cron = "0 30 17 * * *") // 매일 17시 30분 정각에 동작
+	@Scheduled(cron = "00 59 23 * * *") // 매일밤 11시 59분에 동작
 	public void reminderShedule() throws AddressException, FileNotFoundException, MessagingException, IOException {
 		// 내일 마감인 글 조회
 		List<DiaryVO> list = diaryMapper.selectDiaryDueTomorrow();
@@ -59,13 +59,16 @@ public class EmailReminderScheduler {
 			// 메일 본문
 			StringBuilder sb = new StringBuilder();
 
-			sb.append("안녕하세요. 내일까지 해야할 일이 있습니다.");
+			sb.append("<h1>안녕하세요!!</h1>");
+			sb.append("<h2>TodoList입니다!!</h2>");
+			sb.append("<h3>해야 할 리스트가 내일까지 입니다!!</h3>");
 
 			for (DiaryVO vo : entry.getValue()) {
-				sb.append("---").append(vo.getTitle());
+				sb.append("<br>");
+				sb.append("<ul><li>" + vo.getTitle() + "</li></ul>");
 			}
 
-			sb.append(memberId + "님, 꼭 완료하세요!!!");
+			sb.append("<br>" + memberId + "님!! 해야 할 일들을 완료 해주세요!!");
 			log.info("내용 :  {} ", sb.toString());
 			
 			sendMailService.sendReminder(email, sb.toString());

@@ -114,7 +114,7 @@ public class SendMailService {
 			mime.setFrom(new InternetAddress(username)); // 보내는 사람의 메일 주소
 			mime.addRecipient(RecipientType.TO, new InternetAddress(email)); // 받는 사람의 메일 주소
 
-			mime.setSubject("리마인더"); // 메일 제목
+			mime.setSubject("리마인더 "); // 메일 제목
 //			mime.setText(message); // 메일 본문
 
 			mime.setText(message, "utf-8", "html");

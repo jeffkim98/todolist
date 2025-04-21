@@ -61,13 +61,8 @@ public class DiaryServiceImpl implements DiaryService {
 		return diaryMapper.selectSearchList(searchDTO);
 	}
 
-	// 글 삭제
-	@Override
-	public List<DiaryVO> deleteList(int dno) {
-		
-		return diaryMapper.deleteList(dno);
+
 		
 		
-	}
 
 }
