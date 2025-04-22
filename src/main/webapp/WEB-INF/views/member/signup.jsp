@@ -384,7 +384,8 @@ text-align: center;
 <body>
 	<jsp:include page="../header.jsp"></jsp:include>
 	<div class="container mt-5">
-		<div class="row">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
 		
 			<h1>회원가입</h1>
 			<br>
@@ -427,6 +428,7 @@ text-align: center;
 				<button type="reset"  class="btn btn-outline-danger" onclick="clearError();">입력취소</button>
 				</div>
 			</form>
+			</div>
 		</div>
 	</div>
 	<jsp:include page="../footer.jsp"></jsp:include>

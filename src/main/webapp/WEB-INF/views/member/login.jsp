@@ -69,7 +69,8 @@ text-align: center;
 
 	<jsp:include page="../header.jsp"></jsp:include>
 	<div class="container mt-5">
-		<div class="row">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
 
 			<h1>로그인</h1>
 
@@ -91,7 +92,7 @@ text-align: center;
 				<a class="btn btn-outline-danger" href="/">홈페이지로 돌아가기</a>
 				</div>
 			</form>
-
+			</div>
 		</div>
 	</div>
 
