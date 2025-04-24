@@ -12,7 +12,7 @@ $(function () {
 	// 아이디 이벤트
 	$("#memberId").on("blur" , function () {
 		let tmpMemberId = $("#memberId").val();
-		console.log(tmpMemberId);
+// 		console.log(tmpMemberId);
 		// 아이디 : 필수 , 중복 불가, 길이 (6 ~ 12자)
 		
 		if (tmpMemberId.length < 6 || tmpMemberId.length > 12) {
@@ -31,7 +31,7 @@ $(function () {
           // async: false, // 동기 통신 방식
           success: function (data) {
             // 통신이 성공하면 수행할 함수
-            console.log(data);
+//             console.log(data);
             if (data.msg == "duplicate"){
             	
             	outputError("중복된 아이디입니다!! 다시 입력해 주세요!!" ,$("#memberId"),"red");
@@ -104,6 +104,7 @@ $(function () {
 	$("#email").blur(function () {
 		if ($("#email").val().length > 0) {
 			checkEmail();
+			
 		} else {
 			outputError("이메일은 필수 입력 항목입니다." , $("#email"), "red");
 		}
@@ -140,10 +141,10 @@ $(function () {
 			outputError("이메일 형식입니다." , $("#email"), "green");
 			
 			callSendMail(); // 이메일 발송
+			$("#email").attr("readonly", true);
 		}
 		
 	}
-	
 	// 인증코드를 보내는 기능
 	function callSendMail() {
 		
@@ -151,15 +152,16 @@ $(function () {
 	          url: "/member/callSendMail" , // 데이터가 송수신될 서버의 주소
 	          type: "POST", // 통신 방식 (GET, POST, PUT, DELETE)
 			  data:{
-				  "tmpMemberEmail" : $("#email").val()
+				  "tmpMemberEmail" : $("#email").val(),
 			  }, // 보내는 데이터
 	          dataType: "text", // 수신받을 데이터 타입 (MIME TYPE) (text, json, xml)
 	          // async: false, // 동기 통신 방식
 	          success: function (data) {
 	            // 통신이 성공하면 수행할 함수
-	            console.log(data);
+// 	            console.log(data);
 	            if (data == "success") {
-	            	alert("이메일로 인증번호를 발송했습니다. 인증코드를 입력해주세요.")
+	            	
+	            	alert("이메일로 인증번호를 발송했습니다. 인증코드를 입력해주세요.");
 	            	
 	            	if ($(".authenticationDiv").length == 0) {
 	            		
@@ -207,7 +209,7 @@ $(function () {
 	        // async: false, // 동기 통신 방식
 	        success: function (data) {
 	          // 통신이 성공하면 수행할 함수
-	          console.log(data);
+// 	          console.log(data);
 	          if(data == "success"){
 	        	  outputError("인증완료",$("#email"),"green");
 	        	  $(".authenticationDiv").remove();
@@ -262,7 +264,7 @@ $(function () {
 		          // async: false, // 동기 통신 방식
 		          success: function (data) {
 		            // 통신이 성공하면 수행할 함수
-		            console.log(data);
+// 		            console.log(data);
 		            alert("인증시간이 만료되었습니다. 이메일 주소를 다시 입력하고 재인증 해주세요.");
 		            $(".authenticationDiv").remove();
 		            $("#email").val("").focus();			
@@ -323,7 +325,7 @@ $(function () {
 			result = true;
 		
 		}	
-		return result;
+		return true;
 	}
 
 	function nameValid() {
@@ -392,7 +394,7 @@ text-align: center;
 			<h4>🎊환영합니다!!🎊</h4>
 			<h5>회원가입을 하시려면 아래 항목들을 입력해주세요!</h5>
 			
-			<form action="signup" method="post">
+			<form action="/member/signup" method="post">
 
 				<div class="mb-3">
 					<label for="memberName">이름 :</label> <span id="nameError"></span>

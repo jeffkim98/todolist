@@ -13,7 +13,7 @@
 		values(#{memberName}, #{memberId}, sha1(md5(#{memberPwd})), #{email})
   	</insert>
   	
-<!--   	멤버 아이디를 select하는 쿼리문 작성 -->
+<!--   	멤버 아이디를 검사하는 쿼리문 작성 -->
   	<select id="selectMemberId" resultType="int">
   		select count(*) from kyj_member where memberId = #{tmpMemberId}
   	</select>
@@ -30,7 +30,7 @@
   	
 <!--   	회원 탈퇴 -->
   	<delete id="deleteMember">
-  		delete from kyj_member where memberId = #{memberId}
+  		delete from kyj_member where memberId = #{memberId} and memberPwd = sha1(md5(#{memberPwd}))
   	</delete>
   	
 <!--   	비밀번호 변경 -->

@@ -31,7 +31,7 @@ public class DiaryServiceImpl implements DiaryService {
 		return diaryMapper.selectAllList();
 	}
 
-	// 완료 수정
+	// 만료일 수정
 	@Override
 	public void updateFinished(int dno, boolean finished) {
 		diaryMapper.updateFinished(dno, finished);

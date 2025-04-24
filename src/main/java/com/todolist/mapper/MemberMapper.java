@@ -20,7 +20,7 @@ public interface MemberMapper {
 	String selectEmailByMemberId(String memberId);
 	
 	// 회원 탈퇴
-	int deleteMember(String memberId);
+	int deleteMember(@Param("memberId")String memberId,@Param("memberPwd")String memberPwd);
 	
 	// 비밀번호 변경
 	int changePwd(MemberDTO memberDTO);

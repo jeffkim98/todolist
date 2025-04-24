@@ -42,7 +42,7 @@
 		let result = false;
 	
 		let dueDate = $("#dueDate").val(); // 2025-04-11
-		console.log(dueDate == "");
+// 		console.log(dueDate == "");
 		
 		let today = new Date().toISOString().split("T")[0];
 // 		console.log(today); // 오늘의 날짜(시간은 빼고)
@@ -68,7 +68,7 @@
 		let titleValid = validTitle();
 		let dueDateValid = validDueDate();
 		
-		console.log(titleValid, dueDateValid);
+// 		console.log(titleValid, dueDateValid);
 		
 		if(titleValid && dueDateValid){
 			result = true;

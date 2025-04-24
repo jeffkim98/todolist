@@ -22,7 +22,7 @@
   		update kyj_todolist set finished = #{finished} where dno = #{dno}
   	</update>
   	
-<!--   	수정 쿼리문 -->
+<!--   글수정 쿼리문 -->
   	<update id="updateDiary">
   		update kyj_todolist set title = #{title}, dueDate = #{dueDate} where dno = #{dno}
   	</update>

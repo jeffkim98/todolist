@@ -18,7 +18,7 @@
 		let dno = $(this).data("dno");
 		let checked = $(this).is(":checked"); // true | false
 		
-		console.log(dno,checked);
+// 		console.log(dno,checked);
 		
 			$.ajax({
 		          url: '/diary/updateFinished', // 데이터가 송수신될 서버의 주소
@@ -31,7 +31,7 @@
 		          // async: false, // 동기 통신 방식
 		          success: function (data) {
 		            // 통신이 성공하면 수행할 함수
-		            console.log(data);
+// 		            console.log(data);
 		            if (data == "success") {
 		            	if (checked) {
 		            		$("#dlist-" + dno).addClass("completed");
@@ -58,7 +58,7 @@
 		let title = $(this).data("title");
 		let date = $(this).data("date");
 		
-		console.log(dno, title, date);
+// 		console.log(dno, title, date);
 		
 		$("#modifyDno").val(dno);
 		$("#modifyTitle").val(title);
@@ -88,7 +88,7 @@ function modifyDiary() {
 	let title = $("#modifyTitle").val();
 	let dueDateStr = $("#modifyDueDate").val();
 	
-	console.log(dno, title, dueDateStr);
+// 	console.log(dno, title, dueDateStr);
 	// 유효성 검사
 	if (title == "" || dueDateStr == "") {
 		alert("제목, 날짜를 입력하세요!!");
@@ -108,7 +108,7 @@ function modifyDiary() {
         // async: false, // 동기 통신 방식
         success: function (data) {
           // 통신이 성공하면 수행할 함수
-          console.log(data);
+//           console.log(data);
           $("#modifyModal").hide();
           self.location="/diary/list";
           
@@ -123,7 +123,7 @@ function modifyDiary() {
 
 function deleteBtn(dno) {
 	
-	console.log("삭제할 dno : " , dno);
+// 	console.log("삭제할 dno : " , dno);
 
 	$.ajax({
         url: "/diary/deleteList" , // 데이터가 송수신될 서버의 주소
@@ -135,7 +135,7 @@ function deleteBtn(dno) {
         // async: false, // 동기 통신 방식
         success: function (data) {
           // 통신이 성공하면 수행할 함수
-          console.log(data);
+//           console.log(data);
           
         },
         error: function () {},

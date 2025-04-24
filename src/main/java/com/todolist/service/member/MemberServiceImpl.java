@@ -50,9 +50,9 @@ public class MemberServiceImpl implements MemberService {
 
 	// 회원 탈퇴
 	@Override
-	public int deleteMember(String memberId) {
+	public int deleteMember(String memberId,String memberPwd) {
 		
-		return memberMapper.deleteMember(memberId);
+		return memberMapper.deleteMember(memberId,memberPwd);
 	}
 
 	// 비밀번호 변경

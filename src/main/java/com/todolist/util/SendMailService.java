@@ -1,8 +1,8 @@
 package com.todolist.util;
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -80,12 +80,32 @@ public class SendMailService {
 	}
 	
 	// FileReader로 그 안에 있는 주소로 들어가 config.properties에 값을 불러온다.
-	private void getAccount() throws FileNotFoundException, IOException {
-		Properties props = new Properties();
-		props.load(new FileReader("C:\\lecture\\spring\\Spring-mini-to-do-list\\src\\main\\resources\\config\\dbconfig.properties"));
-		this.username = (String) props.get("email.username");
-		this.password = (String) props.get("email.password");
-	}
+//	private void getAccount() throws FileNotFoundException, IOException {
+//		Properties props = new Properties();
+//		props.load(new FileReader("C:\\lecture\\spring\\Spring-mini-to-do-list\\src\\main\\resources\\config\\dbconfig.properties"));
+//		this.username = (String) props.get("email.username");
+//		this.password = (String) props.get("email.password");
+//	}
+	
+	   private void getAccount() throws FileNotFoundException, IOException {
+		   Properties account = new Properties();
+		      // 클래스패스를 기준으로 파일을 읽음
+		      try (InputStream input = getClass().getClassLoader().getResourceAsStream("config/dbconfig.properties")) {
+		         if (input == null) {
+		            throw new FileNotFoundException("classpath에서 'config/dbconfig.properties' 파일을 찾을 수 없습니다.");
+		         }
+		         account.load(input);
+		      }
+
+		      this.username = (String) account.get("email.username");
+		      this.password = (String) account.get("email.password");
+		      
+
+		      System.out.println("username : " + this.username);
+		      System.out.println("password : " + this.password);
+
+		   }
+	
 	
 	public void sendReminder(String email, String message)
 			throws AddressException, MessagingException, FileNotFoundException, IOException {

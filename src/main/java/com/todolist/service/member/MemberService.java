@@ -15,7 +15,7 @@ public interface MemberService {
 	MemberDTO login(LoginDTO loginDTO);
 
 	// 회원 탈퇴
-	int deleteMember(String memberId);
+	int deleteMember(String memberId, String memberPwd);
 
 	// 비밀번호 변경
 	int changePwd(MemberDTO memberDTO);

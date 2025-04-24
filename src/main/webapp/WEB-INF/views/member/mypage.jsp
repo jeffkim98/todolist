@@ -50,18 +50,52 @@ text-align: center;
 	  </div>
 	  <div class="mb-3">
 	    <label class="form-label">새 비밀번호</label>
-	    <input type="password" class="form-control" name="newPwd" >
+	    <input type="password" class="form-control" id="newPwd" name="newPwd" >
 	  </div>
 	  <button type="submit" class="btn btn-primary" onclick="return checkPwd();">비밀번호 변경</button>
 	</form>
 
       <div class="text-center ">
-        <form action="${contextPath }/member/deleteMember" method="post" onsubmit="return confirm('정말로 탈퇴하시겠습니까?');">
-         <a href="${contextPath}/" class="btn btn-secondary">홈으로</a>
-        <button type="submit" class="btn btn-danger">탈퇴하기</button>
-		</form>
-		
+		  <div class="mb-3">
+		  </div>
+		  <a href="${contextPath}/" class="btn btn-secondary">홈으로</a>
+		  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+			 탈퇴하기
+			</button>
       </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- 탈퇴하기 모달 -->
+<div class="modal" id="deleteModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">탈퇴하기</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+      	<form action="${contextPath}/member/deleteMember" method="post" >
+	  <div class="mb-3">
+	    <label class="form-label">비밀번호 확인</label>
+	    <input type="password" class="form-control" placeholder="비밀번호를 입력하세요." name="deleteMember" >
+	  </div>
+	   <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger" data-bs-dismiss="modal" >탈퇴</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+      </div>
+	  
+	   </form>
+     </div>
+
+     
 
     </div>
   </div>

@@ -43,8 +43,16 @@ public class MemberController {
 
 	// 마이페이지를 여는 폼
 	@GetMapping("/mypage")
-	public void mypageForm() {
-
+	public String mypageForm(LoginDTO loginDTO,HttpSession session, RedirectAttributes rttr) {
+		
+		MemberDTO dto =(MemberDTO) session.getAttribute("loginMember");
+		
+		if(dto == null) {
+//			session.getAttribute("loginMember");
+			return "redirect:/";
+		} 
+		
+			return "/member/mypage";	
 	}
 
 	// 회원가입 후 저장
@@ -166,7 +174,7 @@ public class MemberController {
 
 		MemberDTO loginMember = mService.login(loginDTO);
 //			log.info("loginMember : {}", loginMember );
-
+		
 		if (loginMember != null) {
 			// 로그인 성공 - > homepage로 보낸다 ("/")
 			session.setAttribute("loginMember", loginMember); // 세션에 로그인한 멤버의 정보를 저장
@@ -198,11 +206,16 @@ public class MemberController {
 
 	// 회원 탈퇴
 	@PostMapping("/deleteMember")
-	public String deleteMember(HttpSession session) {
+	public String deleteMember(@RequestParam("deleteMember") String deleteMember, HttpSession session , RedirectAttributes rs) {
+		
+		log.info("deleteMember: {} " , deleteMember);
+		
+	MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
 
-		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
-
-		int result = mService.deleteMember(loginMember.getMemberId());
+	int result = mService.deleteMember(loginMember.getMemberId(), deleteMember);
+		
+	log.info("result : {} " , result );
+	
 
 		if (result > 0) {
 			session.invalidate(); // 세션 무효화
@@ -210,10 +223,13 @@ public class MemberController {
 			return "redirect:/";
 		} else {
 			log.info("회원탈퇴 실패");
-			return "redirect:/mypage";
+			rs.addFlashAttribute("msg" , "회원탈퇴에 실패 하였습니다. 다시 입력해주세요!");
+			return "redirect:/member/mypage";
 		}
 
 	}
+	
+	
 
 	// 멤버 비밀번호 변경
 	@PostMapping("/changePwd")
@@ -240,7 +256,12 @@ public class MemberController {
 		log.info(currentPwd);
 		log.info(newPwd);
 		
-		if (currentPwd.equals(newPwd) ) {
+		if (newPwd.length() < 4) {
+			rs.addFlashAttribute("msg", "비밀번호는 4자리 이상입니다. 다시 입력 해주세요!!");
+			return "redirect:/member/mypage";
+		}
+		
+		if (currentPwd.equals(newPwd)) {
 			// 기존 비밀번호와 새 비밀번호가 같은 경우
 			rs.addFlashAttribute("msg", "비밀번호 변경에 실패하였습니다. 다시 입력 해주세요!!");
 			return "redirect:/member/mypage";

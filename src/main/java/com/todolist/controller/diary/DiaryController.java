@@ -124,7 +124,8 @@ public class DiaryController {
 		
 		return "success";
 	}
-
+	
+	// 글 수정
 	@PostMapping("/modify")
 	@ResponseBody
 	public String modifyDiary(@RequestParam Integer dno,

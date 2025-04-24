@@ -84,7 +84,7 @@ text-align: center;
 				</div>
 				
 				<div class = "button">
-				<button type="submit" class="btn btn-outline-primary" ">로그인</button>
+				<button type="submit" class="btn btn-outline-primary" >로그인</button>
 				<a class="btn btn-outline-danger" href="/">홈페이지로 돌아가기</a>
 				</div>
 			</form>
