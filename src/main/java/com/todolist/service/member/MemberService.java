@@ -13,4 +13,17 @@ public interface MemberService {
 
 	// 로그인
 	MemberDTO login(LoginDTO loginDTO);
+
+	// 회원 탈퇴
+	int deleteMember(String memberId);
+
+	// 비밀번호 변경
+	int changePwd(MemberDTO memberDTO);
+	
+	// 비밀번호 변경시 기존 비밀번호와 검사
+	Integer checkPwd(String memberId, String currentPwd);
+	
+
+
+	
 }

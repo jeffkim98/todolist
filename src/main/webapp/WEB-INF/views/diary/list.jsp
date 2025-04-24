@@ -147,7 +147,6 @@ function deleteBtn(dno) {
 	
 </script>
 <style type="text/css">
-	li.completed .dnoDiv,
 	li.completed .titleDiv,
 	li.completed .dueDateDiv {
 		text-decoration: line-through;
@@ -222,8 +221,6 @@ text-align: center;
 				<!-- 체크박스 -->
 				<input type="checkbox" class="form-check-input finishedCheckbox" data-dno="${diary.dno }"
 				<c:if test="${diary.finished }">checked</c:if>/>
-				
-				<div class="dnoDiv"> [${diary.dno }] 리스트 - </div>
 				
 				<label class="titleDiv" >${diary.title } </label>
 				

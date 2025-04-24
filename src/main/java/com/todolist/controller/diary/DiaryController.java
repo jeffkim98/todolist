@@ -51,36 +51,44 @@ public class DiaryController {
 		log.info("diaryDTO : {} ", diaryDTO);
 		String resultPage = "redirect:/diary/list";
 		
-		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");
+		MemberDTO loginMember = (MemberDTO) session.getAttribute("loginMember");	
 		
-		if (loginMember == null) {
-			// 로그인되어 있지 않으면 로그인 페이지
-			return "redirect:/member/login";
-		} else {
-			// 서비스에 넘길 VO 객체 생성 & 저장
-			DiaryVO diaryVO = DiaryVO.builder()
-					.title(diaryDTO.getTitle())
-					.dueDate(diaryDTO.getDueDate())
-					.writer(diaryDTO.getWriter())
-					.finished(diaryDTO.isFinished())
-					.build();
-			
-			try {
-				if (diaryService.register(diaryVO) == 1) {
-					log.info("등록성공");
-					rttr.addFlashAttribute("status", "sucess");
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				log.info("예외 발생!!!");
-				resultPage = "redirect:/diary/register";
-			}
-			
+		log.info("loginMember: {} " , loginMember);
+		
+		
+		
+		 if (loginMember == null) {
+			 // 로그인한 유저가 없으면 로그인 페이지로
+		        return "redirect:/member/login";
+		    }
+
+		    // 유효성 검사 (비어있으면 다시 등록 페이지로)
+		    if (diaryDTO.getTitle().equals("") || diaryDTO.getDueDate().equals("") ) {
+		        rttr.addFlashAttribute("status", "fail");
+		        return "diary/register"; // 등록 페이지로 다시 이동  
+		    } 
+		    
+
+		    // 등록 처리
+		    DiaryVO diaryVO = DiaryVO.builder()
+		            .title(diaryDTO.getTitle())
+		            .dueDate(diaryDTO.getDueDate())
+		            .writer(loginMember.getMemberId())
+		            .finished(diaryDTO.isFinished())
+		            .build();
+
+		    try {
+		        if (diaryService.register(diaryVO) == 1) {
+		            rttr.addFlashAttribute("status", "success");
+		        }
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		        log.info("예외 발생!!!");
+		        resultPage = "redirect:/diary/register";
+		    }
+
+		    return resultPage;
 		}
-		
-		 return resultPage;
-	}
-	
 	
 	@GetMapping("/list")
 	public String viewAll(Model model, HttpSession session) {
@@ -103,6 +111,7 @@ public class DiaryController {
 		
 	}
 	
+	// 마감일 수정
 	@PostMapping("/updateFinished")
 	@ResponseBody
 	public String updateFinished(@RequestParam("dno") int dno, 
@@ -141,6 +150,8 @@ public class DiaryController {
 		return "success";
 	}
 	
+	
+	// 검색
 	@PostMapping("/search")
 	public String searchDiary(SearchDTO searchDTO, HttpSession session, Model model) {
 		
@@ -165,6 +176,7 @@ public class DiaryController {
 		return "/diary/list";
 	}
 	
+	// 리스트 삭제
 	@PostMapping("/deleteList")
 	public String deleteDiary(@RequestParam("dno") int dno) {
 		

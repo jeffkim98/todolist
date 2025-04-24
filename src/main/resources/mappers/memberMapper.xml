@@ -28,4 +28,20 @@
   		select email from kyj_member where memberId = #{memberId}
   	</select>
   	
+<!--   	회원 탈퇴 -->
+  	<delete id="deleteMember">
+  		delete from kyj_member where memberId = #{memberId}
+  	</delete>
+  	
+<!--   	비밀번호 변경 -->
+  	<update id="changePwd" >
+		update kyj_member set memberPwd = sha1(md5(#{memberPwd})) where memberId = #{memberId}
+	</update>
+	
+<!-- 	비밀번호 변경시 세션에 저장되어 있는 비밀번호와 같은지 검사 -->
+	<select id="checkPwd" resultType="int">
+		select count(*) from kyj_member where memberId=#{memberId} and memberPwd=sha1(md5(#{currentPwd}))
+	</select>
+
+  	
   	</mapper>

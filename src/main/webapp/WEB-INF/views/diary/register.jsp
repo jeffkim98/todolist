@@ -17,9 +17,6 @@
 			validDueDate();
 		});
 		
-		$("#writer").on("blur",function(){
-			validWriter();
-		});
 	});
 	
 	
@@ -63,21 +60,6 @@
 		
 	}
 	
-	function validWriter() {
-		// 작성자는 not null
-		let result = false;
-		let writer = $("#writer").val();
-		
-		if(writer == ''){
-			$("#writerError").html("작성자는 필수항목입니다.");
-		} else {
-			$("#writerError").html("");
-			result = true;
-		}
-	
-		return result;
-	}
-	
 	
 	function isValid() {
 		
@@ -85,11 +67,10 @@
 		
 		let titleValid = validTitle();
 		let dueDateValid = validDueDate();
-		let writerValid = validWriter();
 		
-		console.log(titleValid, dueDateValid, writerValid);
+		console.log(titleValid, dueDateValid);
 		
-		if(titleValid && dueDateValid && writerValid){
+		if(titleValid && dueDateValid){
 			result = true;
 		}
 		return result;
@@ -98,7 +79,6 @@
 	function clearErrors() {
 		$("#titleError").html("");
 		$("#dueDateError").html("");
-		$("#writerError").html("");
 	}
 	
 </script>
@@ -117,8 +97,9 @@ span {
 </head>
 <body>
 	<jsp:include page="../header.jsp"></jsp:include>
-	<div class="container mt-5">
-		<div class="row">
+		<div class="container mt-5">
+  			<div class="row justify-content-center">
+    	<div class="col-md-6">
 
 			<h1>${loginMember.memberName}님의 todolist 등록</h1>
 
@@ -136,18 +117,12 @@ span {
 					<input type="date" class="form-control" id="dueDate" name="dueDateStr">
 				</div>
 				
-				<div class="mb-3">
-					<label for="writer" class="form-label">작성자 :</label> 
-					<span id="writerError"></span>
-					<input type="text" class="form-control" id="writer" placeholder="작성자" name="writer">
-				</div>
-				
 				<div>
 				<button type="submit" class="btn btn-primary" onclick="return isValid();">등록</button>
 				<button type="reset" class="btn btn-secondary" onclick="clearErrors();">취소</button>
 				</div>
 			</form>
-
+			</div>
 		</div>
 	</div>
 	<jsp:include page="../footer.jsp"></jsp:include>

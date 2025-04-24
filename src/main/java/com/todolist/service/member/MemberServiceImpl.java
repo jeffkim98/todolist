@@ -14,9 +14,9 @@ public class MemberServiceImpl implements MemberService {
 	
 	private final MemberMapper memberMapper;
 	
+	// 멤버 저장
 	@Override
 	public boolean memberStorage(MemberDTO memberDTO) {
-		// 멤버 저장 메서드
 		
 		boolean result = false;
 		
@@ -26,10 +26,11 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return result;
 	}
-
+	
+	// 아이디 중복
 	@Override
 	public boolean idIsDuplicate(String tmpMemberId) {
-		// 아이디 중복 메서드
+	
 		// 중복 이면 true, 중복아니면 false
 		
 		boolean result = false;
@@ -40,10 +41,33 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	// 로그인
 	@Override
 	public MemberDTO login(LoginDTO loginDTO) {
-		// 로그인 메서드
+		
 		return memberMapper.loginMemberDTO(loginDTO);
 	}
 
+	// 회원 탈퇴
+	@Override
+	public int deleteMember(String memberId) {
+		
+		return memberMapper.deleteMember(memberId);
+	}
+
+	// 비밀번호 변경
+	@Override
+	public int changePwd(MemberDTO memberDTO) {
+		
+		return memberMapper.changePwd(memberDTO);
+	}
+
+	// 비밀번호 변경시 세션에 저장되어 있는 비밀번호와 확인
+	@Override
+	public Integer checkPwd(String memberId, String currentPwd) {
+		return memberMapper.checkPwd(memberId, currentPwd);
+	}
+	
+
+	
 }
