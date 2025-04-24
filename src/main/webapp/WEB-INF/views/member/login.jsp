@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <title>로그인</title>
+<c:if test="${not empty msg}">
 <script type="text/javascript">
+
 $(function () {
-	
 	
 	$("#memberId").on("blur" , function () {
 	
@@ -16,6 +18,7 @@ $(function () {
 		
 		if (id == ""){
 			outputError("아이디를 입력해주세요!!" , $("#memberId") , "red");
+			$("#memberId").focus();
 		} else {
 			outputError("" , $("#memberId") , "green")
 		}
@@ -28,12 +31,14 @@ $(function () {
 		
 		if (pwd == ""){
 			outputError("비밀번호를 입력해주세요!!" , $("#memberPwd") , "red");
+			$("#memberPwd").focus();
 		} else {
 			outputError("" , $("#memberPwd") , "green")
 		}
 		
 	});
 });
+alert("${msg}");
 
 function outputError(errorMsg, tagObj, color) {
 	let errTag = $(tagObj).prev(); // <span></span>
@@ -42,18 +47,9 @@ function outputError(errorMsg, tagObj, color) {
 	$(tagObj).css("border-color",color);
 }
 
-function login() {
-	if($("#memberId").val() == "" || $("#memberPwd").val() == "" ){
-		alert("아이디나 비밀번호가 입력되지 않거나 틀립니다. 다시 입력해주세요!!");
-	}
-	
-	if($("#memberId").val() == "checked" || $("#memberPwd").val() == "checked"){
-		alert("아이디나 비밀번호가 입력되지 않거나 틀립니다. 다시 입력해주세요!!");
-	}
-}
-
 
 </script>
+</c:if>
 <style type="text/css">
 h1{
 text-align: center;
@@ -88,7 +84,7 @@ text-align: center;
 				</div>
 				
 				<div class = "button">
-				<button type="submit" class="btn btn-outline-primary" onclick="login();">로그인</button>
+				<button type="submit" class="btn btn-outline-primary" ">로그인</button>
 				<a class="btn btn-outline-danger" href="/">홈페이지로 돌아가기</a>
 				</div>
 			</form>
